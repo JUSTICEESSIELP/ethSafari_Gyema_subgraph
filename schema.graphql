@@ -1,0 +1,24 @@
+type DeliveryContractCreated @entity(immutable: true) {
+  id: Bytes!
+  contractAddress: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+type CarbonSavingsLogged @entity(immutable: true) {
+  id: Bytes!
+  deliveryId: BigInt! # uint256
+  carbonSavings: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserCarbonSavingsUpdated @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes! # address
+  totalCarbonSavings: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

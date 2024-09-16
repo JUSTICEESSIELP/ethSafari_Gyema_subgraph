@@ -1,0 +1,45 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_emissionsCalculator",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_carbonSavingsTracker",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "DeliveryContractCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "createDeliveryContract",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "deliveriesCount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

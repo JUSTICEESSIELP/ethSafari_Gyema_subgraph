@@ -1,0 +1,456 @@
+[
+    {
+        "type": "constructor",
+        "inputs": [
+            {
+                "name": "_emissionsCalculator",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "_carbonSavingsTracker",
+                "type": "address",
+                "internalType": "address"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "acceptLeg",
+        "inputs": [
+            {
+                "name": "_deliveryId",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "_legId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "carbonSavingsTracker",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "contract CarbonSavingsTracker"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "completeLeg",
+        "inputs": [
+            {
+                "name": "_deliveryId",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "_legId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "createDelivery",
+        "inputs": [
+            {
+                "name": "_customer",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "_pickupLocation",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "_dropoffLocation",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "_packageWeight",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "_deadline",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "_intermediateLocations",
+                "type": "string[]",
+                "internalType": "string[]"
+            },
+            {
+                "name": "_legDistances",
+                "type": "uint256[]",
+                "internalType": "uint256[]"
+            },
+            {
+                "name": "_estimatedStartTimes",
+                "type": "uint256[]",
+                "internalType": "uint256[]"
+            },
+            {
+                "name": "_estimatedEndTimes",
+                "type": "uint256[]",
+                "internalType": "uint256[]"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable"
+    },
+    {
+        "type": "function",
+        "name": "deliveries",
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "id",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "customer",
+                "type": "address",
+                "internalType": "address"
+            },
+            {
+                "name": "pickupLocation",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "dropoffLocation",
+                "type": "string",
+                "internalType": "string"
+            },
+            {
+                "name": "packageWeight",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "deadline",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "fulfilled",
+                "type": "bool",
+                "internalType": "bool"
+            },
+            {
+                "name": "totalDistance",
+                "type": "uint256",
+                "internalType": "uint256"
+            },
+            {
+                "name": "totalCarbonSavings",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "deliveryCounter",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "emissionsCalculator",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address",
+                "internalType": "contract EmissionsCalculator"
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "function",
+        "name": "getDeliveryDetails",
+        "inputs": [
+            {
+                "name": "_deliveryId",
+                "type": "uint256",
+                "internalType": "uint256"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct DeliveryContractReactive.DeliveryDetails",
+                "components": [
+                    {
+                        "name": "id",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "customer",
+                        "type": "address",
+                        "internalType": "address"
+                    },
+                    {
+                        "name": "pickupLocation",
+                        "type": "string",
+                        "internalType": "string"
+                    },
+                    {
+                        "name": "dropoffLocation",
+                        "type": "string",
+                        "internalType": "string"
+                    },
+                    {
+                        "name": "packageWeight",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "deadline",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "fulfilled",
+                        "type": "bool",
+                        "internalType": "bool"
+                    },
+                    {
+                        "name": "legs",
+                        "type": "tuple[]",
+                        "internalType": "struct DeliveryContractReactive.DeliveryLeg[]",
+                        "components": [
+                            {
+                                "name": "legId",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "driver",
+                                "type": "address",
+                                "internalType": "address"
+                            },
+                            {
+                                "name": "startLocation",
+                                "type": "string",
+                                "internalType": "string"
+                            },
+                            {
+                                "name": "endLocation",
+                                "type": "string",
+                                "internalType": "string"
+                            },
+                            {
+                                "name": "distance",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "fulfilled",
+                                "type": "bool",
+                                "internalType": "bool"
+                            },
+                            {
+                                "name": "estimatedStartTime",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            },
+                            {
+                                "name": "estimatedEndTime",
+                                "type": "uint256",
+                                "internalType": "uint256"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "totalDistance",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    },
+                    {
+                        "name": "totalCarbonSavings",
+                        "type": "uint256",
+                        "internalType": "uint256"
+                    }
+                ]
+            }
+        ],
+        "stateMutability": "view"
+    },
+    {
+        "type": "event",
+        "name": "DeliveryCompleted",
+        "inputs": [
+            {
+                "name": "deliveryId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "DeliveryCreated",
+        "inputs": [
+            {
+                "name": "deliveryId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "customer",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "EmissionsCalculated",
+        "inputs": [
+            {
+                "name": "deliveryId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "legId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "carbonSavings",
+                "type": "uint256",
+                "indexed": false,
+                "internalType": "uint256"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "LegAssigned",
+        "inputs": [
+            {
+                "name": "deliveryId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "legId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "driver",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "LegFulfilled",
+        "inputs": [
+            {
+                "name": "deliveryId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "legId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "driver",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    },
+    {
+        "type": "event",
+        "name": "NextDriverNotified",
+        "inputs": [
+            {
+                "name": "deliveryId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "legId",
+                "type": "uint256",
+                "indexed": true,
+                "internalType": "uint256"
+            },
+            {
+                "name": "nextDriver",
+                "type": "address",
+                "indexed": true,
+                "internalType": "address"
+            }
+        ],
+        "anonymous": false
+    }
+]

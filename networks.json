@@ -1,0 +1,11 @@
+{
+  "base-sepolia": {
+    "DeliveryFactory": {
+      "address": "0x581ddda1D64384A0A70887D0c2f1d2bb69C722fB",
+      "startBlock": 15125707
+    },
+    "CarbonSavingsTracker": {
+      "address": "0x8f387E8b8e885D6BAcEE961D867b52617114Fb42"
+    }
+  }
+}
