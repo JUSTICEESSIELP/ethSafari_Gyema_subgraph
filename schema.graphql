@@ -1,6 +1,127 @@
 type DeliveryContractCreated @entity(immutable: true) {
   id: Bytes!
   contractAddress: Bytes! # address
+  deliveries: [Delivery!]! @derivedFrom(field: "contractAddress")
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Account @entity(immutable:true){
+  id:ID!
+  totalCarbonSavings:BigInt!
+  isDriver:Boolean!
+  deliveryLegsAsDriver: [DeliveryLeg!]! @derivedFrom(field: "driver")
+  deliveries: [Delivery!]! @derivedFrom(field: "customer")
+  userAddress:Bytes!
+}
+
+# type _Schema_
+#   @fulltext(
+#     name: "userSearch"
+#     language: en
+#     algorithm: rank
+#     include: [{ entity: "Account", fields: [{  name: "userAddress" }] }]
+#   )
+
+
+
+type DeliveryCompleted @entity(immutable: true) {
+  id: Bytes!
+  deliveryId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+
+
+type Delivery @entity(immutable: true) {
+  id: Bytes!
+  deliveryId: BigInt! # uint256
+  customer: Account! # address
+  contractAddress: DeliveryContractCreated! # address
+  pickupLocation: String!  
+  dropoffLocation: String!
+  packageWeight:BigInt!
+  status: DeliveryStatus!
+  deadline: BigInt!
+  fulfilled: Boolean!
+  totalDistance: BigInt!
+  totalCarbonSavings: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  blockNumber: BigInt!
+
+
+}
+
+
+type EmissionsCalculated @entity(immutable: true) {
+  id: Bytes!
+  deliveryId: BigInt! # uint256
+  legId: BigInt! # uint256
+  carbonSavings: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+enum DeliveryStatus {
+  CREATED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum LegStatus {
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+}
+
+type DeliveryLeg @entity(immutable:true){
+  id: String!
+  delivery: Bytes!
+  legId: Int!
+  driver: Account!
+  startLocation: String!
+  status: LegStatus!
+  endLocation: String!
+  distance: BigInt!
+  fulfilled: Boolean
+  estimatedStartTime: BigInt!
+  estimatedEndTime: BigInt!
+  actualEndTime:BigInt
+  carbonSavings: BigInt!
+
+}
+type LegAssigned @entity(immutable: true) {
+  id: Bytes!
+  deliveryId: BigInt! # uint256
+  legId: BigInt! # uint256
+  driver: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LegFulfilled @entity(immutable: true) {
+  id: Bytes!
+  deliveryId: BigInt! # uint256
+  legId: BigInt! # uint256
+  driver: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NextDriverNotified @entity(immutable: true) {
+  id: Bytes!
+  deliveryId: BigInt! # uint256
+  legId: BigInt! # uint256
+  nextDriver: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -12,6 +133,30 @@ type CarbonSavingsLogged @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type CarbonSavingsData @entity(timeseries: true) {
+  id: Int8!
+  timestamp: Timestamp!
+  user: Account!
+  carbonSavings: BigInt!
+}
+
+type CarbonSavingsStats @aggregation(intervals: ["hour", "day"], source: "CarbonSavingsData") {
+  id: Int8!
+  timestamp: Timestamp!
+  user: Account!
+  totalCarbonSavings: BigInt! @aggregate(fn: "sum", arg: "carbonSavings")
+  averageCarbonSavings: BigDecimal! @aggregate(fn: "avg", arg: "carbonSavings")
+  count: Int! @aggregate(fn: "count", cumulative: true)
+}
+
+type GlobalStats @aggregation(intervals: ["hour", "day"], source: "CarbonSavingsData") {
+  id: Int8!
+  timestamp: Timestamp!
+  totalCarbonSavings: BigInt! @aggregate(fn: "sum", arg: "carbonSavings")
+  averageCarbonSavings: BigDecimal! @aggregate(fn: "avg", arg: "carbonSavings")
+  uniqueUsers: Int! @aggregate(fn: "count_distinct", arg: "user", cumulative: true)
 }
 
 type UserCarbonSavingsUpdated @entity(immutable: true) {

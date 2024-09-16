@@ -24,37 +24,60 @@ dataSources:
         - event: DeliveryContractCreated(address)
           handler: handleDeliveryContractCreated
       file: ./src/delivery-factory.ts
-templates:
-  - name: DeliveryLeg
-    kind: ethereum/contract
-    network: mainnet
+  - kind: ethereum
+    name: CarbonSavingsTracker
+    network: base-sepolia
     source:
-      abi: DeliveryContractReactive
-      startBlock: 0
+      address: "0x8f387E8b8e885D6BAcEE961D867b52617114Fb42"
+      abi: CarbonSavingsTracker
+      startBlock: 15125703
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
-      file: ./src/delivery-leg.ts
       entities:
-        - Delivery
-        - DeliveryLeg
-        - Account
+        - CarbonSavingsLogged
+        - UserCarbonSavingsUpdated
+      abis:
+        - name: CarbonSavingsTracker
+          file: ./abis/CarbonSavingsTracker.json
+      eventHandlers:
+        - event: CarbonSavingsLogged(indexed uint256,uint256)
+          handler: handleCarbonSavingsLogged
+        - event: UserCarbonSavingsUpdated(indexed address,uint256)
+          handler: handleUserCarbonSavingsUpdated
+      file: ./src/carbon-savings-tracker.ts
+templates:
+  - kind: ethereum
+    name: DeliveryContractReactive
+    network: base-sepolia
+    source:
+      abi: DeliveryContractReactive
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - DeliveryCompleted
+        - DeliveryCreated
+        - EmissionsCalculated
+        - LegAssigned
+        - LegFulfilled
+        - NextDriverNotified
       abis:
         - name: DeliveryContractReactive
           file: ./abis/DeliveryContractReactive.json
       eventHandlers:
+        - event: DeliveryCompleted(indexed uint256)
+          handler: handleDeliveryCompleted
         - event: DeliveryCreated(indexed uint256,indexed address)
           handler: handleDeliveryCreated
+        - event: EmissionsCalculated(indexed uint256,indexed uint256,uint256)
+          handler: handleEmissionsCalculated
         - event: LegAssigned(indexed uint256,indexed uint256,indexed address)
           handler: handleLegAssigned
         - event: LegFulfilled(indexed uint256,indexed uint256,indexed address)
           handler: handleLegFulfilled
-        - event: EmissionsCalculated(indexed uint256,indexed uint256,uint256)
-          handler: handleEmissionsCalculated
-        - event: DeliveryCompleted(indexed uint256)
-          handler: handleDeliveryCompleted
-    
-   
- 
-        
+        - event: NextDriverNotified(indexed uint256,indexed uint256,indexed address)
+          handler: handleNextDriverNotified
+      file: ./src/delivery-contract-reactive.ts
